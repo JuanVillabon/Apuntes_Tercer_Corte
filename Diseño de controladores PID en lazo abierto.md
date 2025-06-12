@@ -102,13 +102,13 @@ B. Respuesta más agresiva y compensación más precisa en ciertos casos.
 
 ![image](https://github.com/user-attachments/assets/8229b61b-93a9-4a1f-8fff-593c69b17429)
 
-*Nota:* Es importante destacar que la elección de la arquitectura PID adecuada depende del tipo de sistema a controlar y del entorno en el que se implemente. Por ejemplo, la arquitectura paralela es muy utilizada en sistemas digitales y simulaciones debido a su claridad y facilidad para ajustar individualmente cada acción de control. En cambio, la arquitectura ideal es común en aplicaciones industriales, ya que muchos controladores comerciales están diseñados bajo este esquema, lo que facilita su implementación práctica. Por otro lado, aunque menos utilizada, la arquitectura en serie puede ofrecer beneficios en sistemas con dinámicas complejas donde las acciones de control necesitan interactuar de forma más integrada. Comprender estas diferencias permite seleccionar la configuración más efectiva según las necesidades del proceso y garantizar un rendimiento óptimo del sistema de control.
+***Nota:*** Es importante destacar que la elección de la arquitectura PID adecuada depende del tipo de sistema a controlar y del entorno en el que se implemente. Por ejemplo, la arquitectura paralela es muy utilizada en sistemas digitales y simulaciones debido a su claridad y facilidad para ajustar individualmente cada acción de control. En cambio, la arquitectura ideal es común en aplicaciones industriales, ya que muchos controladores comerciales están diseñados bajo este esquema, lo que facilita su implementación práctica. Por otro lado, aunque menos utilizada, la arquitectura en serie puede ofrecer beneficios en sistemas con dinámicas complejas donde las acciones de control necesitan interactuar de forma más integrada. Comprender estas diferencias permite seleccionar la configuración más efectiva según las necesidades del proceso y garantizar un rendimiento óptimo del sistema de control.
 
 ## Sintonización por prueba y error
 
 Es una técnica empírica utilizada para ajustar las ganancias de un controlador PID sin necesidad de conocer con precisión el modelo matemático del sistema. Se basa en observar el comportamiento del sistema en respuesta a los cambios en las ganancias y ajustar en consecuencia hasta obtener un rendimiento aceptable.
 
-- *Metodologia mas frecuente*
+- **Metodologia mas frecuente**
 
 1. Ajustar a 0 las ganancias integral y derivativa
 2. Aumentar la ganancia proporcional $(K_{p})$ hasta obtener un buen tiempo de establecimiento
@@ -127,7 +127,7 @@ Los métodos de sintonización en lazo abierto consisten en ajustar los parámet
 
 Estos métodos suelen usar la respuesta del sistema ante un cambio brusco en la entrada (como un escalón), lo que permite estimar el comportamiento del proceso y calcular las ganancias del controlador PID con fórmulas empíricas.
 
-*1. Método de Ziegler y Nichols*
+***1. Método de Ziegler y Nichols***
 
 El método fue desarrollado en la década de 1940 por John G. Ziegler y Nathaniel B. Nichols, ingenieros de la empresa Taylor Instrument Company. Su objetivo era encontrar una forma sistemática y rápida de ajustar los controladores PID sin necesidad de modelos matemáticos complejos del sistema.
 
@@ -141,7 +141,7 @@ En esa época, los controladores eran mayormente analógicos, y no se contaba co
 
 ![image](https://github.com/user-attachments/assets/469aaf48-784c-4f0d-a87c-40f0060e5d60)
 
-*2. Método Cohen - Coon*
+***2. Método Cohen - Coon***
 
 El método Cohen-Coon fue desarrollado en 1953 por los ingenieros Graham C. Cohen y George A. Coon, quienes trabajaban en el análisis y diseño de sistemas de control en procesos industriales. Fue presentado como una mejora al método de Ziegler-Nichols (lazo abierto), especialmente para sistemas de primer orden con retardo (FOPDT: First Order Plus Dead Time), los cuales son muy comunes en la industria.
 
@@ -154,7 +154,7 @@ A diferencia del método de Ziegler-Nichols, que busca una respuesta rápida aun
 2. Mínimo sobre de impulso posible
 3. Mínima Área bajo la curva
 
-*3. Método por coeficiente de ajustabilidad*
+***3. Método por coeficiente de ajustabilidad***
 
 El método por coeficiente de ajustabilidad (tuning by adjustability coefficient) se originó como una alternativa práctica para estimar parámetros PID sin depender exclusivamente de métodos como Ziegler-Nichols o Cohen-Coon. Aunque no fue desarrollado por un autor específico como los anteriores, se basa en el análisis empírico de la respuesta del sistema a una perturbación o entrada tipo escalón.
 
@@ -168,7 +168,7 @@ Es un método más directo y accesible para técnicos e ingenieros de planta que
 1. Mínimo ITAE
 2. Mínimo error con respecto a factor de amortiguamiento
 
-*4. Método Smith*
+***4. Método Smith***
 
 El método Smith fue desarrollado por Otto J. M. Smith en 1957, como una solución al problema de controlar procesos industriales que presentan un tiempo muerto considerable.
 
