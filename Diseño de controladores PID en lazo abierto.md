@@ -1,6 +1,6 @@
-# Diseño de controladores PID en lazo abierto
+# 👉 Diseño de controladores PID en lazo abierto
 
-## Controladores PID
+## 👉 Controladores PID
 
 Los controladores PID son herramientas fundamentales en la ingeniería de control automático. Su propósito es regular variables en sistemas dinámicos para que sigan una referencia deseada, minimizando el error de forma eficiente y estable. La sigla PID proviene de los tres términos que lo componen:
 
@@ -10,23 +10,23 @@ Los controladores PID son herramientas fundamentales en la ingeniería de contro
 
 - *Derivativo (D):* Anticipa la tendencia del error, actuando sobre la velocidad del cambio para amortiguar las oscilaciones.
 
-### Contexto histórico
+### 🤚 Contexto histórico
 
 Nicolás Minorsky, en 1922, fue uno de los pioneros en el análisis del comportamiento de sistemas controlados automáticamente. En su publicación sobre la "Estabilidad direccional de cuerpos dirigidos automáticamente", propuso el uso de un sistema de control de tres términos para regular el rumbo del buque “New Mexico”. Aunque no se llamaban PID aún, su análisis sentó las bases para lo que hoy entendemos como un controlador PID.
 
 No fue sino hasta 1936, con la participación de la Taylor Instrument Company, que se comenzaron a implementar controladores PID de propósito general en la industria. Inicialmente, se usó una acción derivativa fija (preestablecida en fábrica), pero para 1939, se desarrolló una versión más avanzada con acción derivativa ajustable, lo cual permitió una mayor flexibilidad y precisión en el control.
 
-### Importancia actual
+### 🤚 Importancia actual
 
 Los controladores PID siguen siendo ampliamente utilizados en la industria moderna por su simplicidad, eficiencia y robustez. Se aplican en sistemas de control de temperatura, velocidad, presión, flujo, entre otros. Incluso en la robótica, la automatización de procesos y la electrónica de consumo (como los drones o termostatos), los PID juegan un papel esencial.
 
 *Nota:* Aunque los controladores PID son muy versátiles, no son adecuados para todos los sistemas, especialmente aquellos altamente no lineales, con grandes retardos o dinámicas complejas. En estos casos, puede ser necesario usar técnicas más avanzadas como controladores adaptativos, difusos, o redes neuronales. Además, una mala sintonización de los parámetros PID (Kp, Ki, Kd) puede llevar a inestabilidad, oscilaciones o bajo rendimiento del sistema, por lo que es crucial realizar un ajuste cuidadoso, ya sea manual, mediante métodos heurísticos (como Ziegler-Nichols), o con técnicas automáticas.
 
-## Acciones de control
+## 👉 Acciones de control
 
 Los sistemas de control utilizan diferentes acciones para corregir el comportamiento de un proceso. En un controlador PID, se combinan tres tipos fundamentales de acciones: Proporcional (P), Integral (I) y Derivativa (D). Cada una tiene una función específica y aporta ventajas particulares.
 
-- *Acción proporcional (P)*
+- ***Acción proporcional (P)***
 
 Función: Aplica una corrección proporcional al error actual (la diferencia entre la señal deseada y la medida).
 
@@ -36,7 +36,7 @@ $$ u(t) = K_{p} * e(t) $$
 
 $$ U(s) = K_{p} * E(s) $$
 
-- *Acción Integral (I)*
+- ***Acción Integral (I)***
 
 Función: Acumula el error a lo largo del tiempo y genera una corrección basada en la suma de errores pasados.
 
@@ -44,7 +44,7 @@ Limitación: Puede causar oscilaciones si se usa en exceso, debido a que reaccio
 
 ![image](https://github.com/user-attachments/assets/b43a20bf-9d88-4a5c-9600-453e2d6d955c)
 
-- *Acción Derivativa (D)*
+- ***Acción Derivativa (D)***
 
 Función: Responde a la tasa de cambio del error, anticipándose a su evolución futura.
 
@@ -52,11 +52,11 @@ Limitación: Muy sensible al ruido en la señal, por lo que debe utilizarse con 
 
 ![image](https://github.com/user-attachments/assets/06b62050-8acd-4021-9767-307d468bff05)
 
-## Arquitecturas PID
+## 👉 Arquitecturas PID
 
 Las arquitecturas PID definen cómo se estructuran y combinan las tres acciones de control (Proporcional, Integral y Derivativa) dentro del controlador. Aunque todas buscan el mismo objetivo corregir el error de un sistema, la forma en que se ensamblan afecta la dinámica del controlador y su facilidad de ajuste.
 
-*1. Arquitectura Paralela*
+***1. Arquitectura Paralela***
 
 Forma matemática $G(s) = K_{p} + /frac{K_{i}}{s} + K_{d}^{s}$
 
@@ -71,7 +71,7 @@ B. Útil en simulación y diseño digital
 
 ![image](https://github.com/user-attachments/assets/05834fc5-366f-4919-9d69-d9d1662c8415)
 
-*2. Arquitectura Ideal*
+***2. Arquitectura Ideal***
 
 Forma matemática $G(s) = K (1 + /frac{1}{T_{i}s} + T_{d}^{s}$
 
@@ -87,7 +87,7 @@ B. Parámetros más interpretables en función del proceso.
 ![image](https://github.com/user-attachments/assets/ce69ea77-ce6d-455b-ab99-620556fde9e0)
 
 
-*3. Arquitectura Serie*
+***3. Arquitectura Serie***
 
 Forma matemática: $G(s) = K*(1+/frac{1}{T_{i}^{s}})*(1+T_{d}^{s})$
 
@@ -104,7 +104,7 @@ B. Respuesta más agresiva y compensación más precisa en ciertos casos.
 
 ***Nota:*** Es importante destacar que la elección de la arquitectura PID adecuada depende del tipo de sistema a controlar y del entorno en el que se implemente. Por ejemplo, la arquitectura paralela es muy utilizada en sistemas digitales y simulaciones debido a su claridad y facilidad para ajustar individualmente cada acción de control. En cambio, la arquitectura ideal es común en aplicaciones industriales, ya que muchos controladores comerciales están diseñados bajo este esquema, lo que facilita su implementación práctica. Por otro lado, aunque menos utilizada, la arquitectura en serie puede ofrecer beneficios en sistemas con dinámicas complejas donde las acciones de control necesitan interactuar de forma más integrada. Comprender estas diferencias permite seleccionar la configuración más efectiva según las necesidades del proceso y garantizar un rendimiento óptimo del sistema de control.
 
-## Sintonización por prueba y error
+## 👉 Sintonización por prueba y error
 
 Es una técnica empírica utilizada para ajustar las ganancias de un controlador PID sin necesidad de conocer con precisión el modelo matemático del sistema. Se basa en observar el comportamiento del sistema en respuesta a los cambios en las ganancias y ajustar en consecuencia hasta obtener un rendimiento aceptable.
 
