@@ -185,12 +185,69 @@ Una vez obtenidos los parámetros $K_{c}$ (Ganancia crítica) y $P_{u}$ (Periodo
 
 ## Fenómeno de Wind-up (Integral Wind-up)
 
-El Wind-up ocurre cuando la acción integral del PID acumula un valor excesivo (saturación), especialmente cuando el actuador llega a su límite (por ejemplo, una válvula completamente abierta o cerrada) y el error persiste.
+El fenómeno de wind-up ocurre en sistemas de control con acción integral, cuando el controlador sigue integrando el error incluso si el actuador (como una válvula, motor, etc.) ya está saturado y no puede ejecutar la señal de control generada.
+Esto lleva a una acumulación excesiva en el término integral, lo que provoca:
 
-Consecuencias:
+- Lentas recuperaciones tras la saturación
 
-- Sobresalto excesivo al volver el sistema a la zona de control.
+- Grandes sobreimpulsos
 
-- Retardo en la recuperación del sistema.
+- Inestabilidad temporal del sistema
 
-- Oscilaciones no deseadas.
+Este comportamiento es especialmente crítico en controladores PI o PID y debe ser mitigado con técnicas anti-wind-up.
+
+### Métodos Anti-Wind-up
+
+1. Anti-Wind-up por saturación de la acción integral
+
+Este es el método más simple.
+Consiste en limitar directamente el valor del término integral dentro de un rango definido:
+
+$$ I(t) = min(max(I(t), I_{min}), I_{max}) $$
+
+Donde $I(t)$ es la acción integral acumulada.
+
+Este enfoque previene que el integrador crezca más allá de los límites físicos del actuador, aunque no lo detiene completamente durante la saturación.
+
+![image](https://github.com/user-attachments/assets/cd155e8a-7f70-40eb-adff-11ace5d92173)
+
+2. Anti-Wind-up por integración condicional
+
+En este método, el integrador solo acumula error cuando la salida del controlador no está saturada o si el error tiene el mismo signo que la diferencia entre la señal de control y su límite.
+
+Si no hay saturación, entonces $\frac{d_{i}(t)}{dt} = e(t)$
+
+Si hay saturación, entonces: $\frac{d_{i}(t)}{dt} = 0$
+
+Este enfoque evita que el integrador se “infle” cuando el actuador no puede responder.
+👉 Es una solución eficiente y fácil de implementar en controladores digitales.
+
+![image](https://github.com/user-attachments/assets/f7f14cc0-9fd0-4170-86a6-eb2c8414ea2b)
+
+
+3. Anti-Wind-up por recalculo y seguimiento (Back-calculation)
+
+Aquí se introduce un lazo de retroalimentación interno que compara la señal real aplicada (saturada) con la salida deseada del controlador. Se ajusta el término integral con base en la diferencia:
+
+$$ \frac{d_{i}(t)}{dt} = e(t) + K_{aw}(u_{real} - u_{calc}) $$
+
+Donde:
+
+- K_{aw} es la ganancia anti-windup
+
+- u_{real} es la señal saturada
+
+- u_{calc} es la salida original del PID
+
+Este método corrige activamente el integrador durante la saturación, permitiendo que el sistema recupere más rápido y con menos sobreimpulso. Es muy usado en controladores industriales modernos.
+
+## Conlcusion
+
+El control anti-windup es esencial para evitar problemas de sobreacumulación en controladores con acción integral.
+Cada método tiene sus ventajas dependiendo del sistema:
+
+Saturación: simple y directa
+
+Condicional: más suave y lógico
+
+Recalculo: más preciso, ideal para sistemas críticos
